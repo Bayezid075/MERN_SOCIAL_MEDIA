@@ -8,7 +8,8 @@ import multer from "multer";
 import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
-import { register } from "./controller/auth.js";
+import register from "./routes/auth.js";
+import login from "./routes/auth.js";
 
 /* Configuration */
 const __filename = fileURLToPath(import.meta.url);
@@ -49,7 +50,9 @@ mongoose
   });
 
 // Api - Routes //
-app.post("/auth/register", upload.single("picture"), register);
+// app.post("/auth/register", upload.single("picture"), register);
+app.use("/auth", register);
+app.use("/auth", login);
 
 // Run Server
 const PORT = process.env.PORT;
