@@ -10,6 +10,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import register from "./routes/auth.js";
 import login from "./routes/auth.js";
+import userRoute from "./routes/user.js";
 
 /* Configuration */
 const __filename = fileURLToPath(import.meta.url);
@@ -53,6 +54,7 @@ mongoose
 // app.post("/auth/register", upload.single("picture"), register);
 app.use("/auth", register);
 app.use("/auth", login);
+app.use("/user", userRoute);
 
 // Run Server
 const PORT = process.env.PORT;
