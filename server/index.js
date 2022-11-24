@@ -11,6 +11,8 @@ import { fileURLToPath } from "url";
 import register from "./routes/auth.js";
 import login from "./routes/auth.js";
 import userRoute from "./routes/user.js";
+import postRoute from "./routes/post.js";
+import { verifyToken } from "./middleware/auth.js";
 
 /* Configuration */
 const __filename = fileURLToPath(import.meta.url);
@@ -49,12 +51,14 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-
-// Api - Routes //
+/* ROUTE WITH FILE */
+app.post("/post", verifyToken, upload.single("picture"));
 // app.post("/auth/register", upload.single("picture"), register);
+// Api - Routes //
 app.use("/auth", register);
 app.use("/auth", login);
 app.use("/user", userRoute);
+app.post("/post", postRoute);
 
 // Run Server
 const PORT = process.env.PORT;
